@@ -3,8 +3,8 @@ services:
   server:
     ports: 
       - "8000:8000"
-    image: "aitzol/udsserver:0.1"
-    command: python manage.py runserver 0:8000
+    image: "aitzol/udsserver:0.2"
+    command: gunicorn -b :8000 --env DJANGO_SETTINGS_MODULE=server.settings server.wsgi
     depends_on:
       - mysql
       - memcached
