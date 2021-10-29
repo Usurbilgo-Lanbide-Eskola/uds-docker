@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  server:
+    ports: 
+      - "8000:8000"
+    image: "aitzol/udsserver:0.1"
+    command: python manage.py runserver 0:8000
+    depends_on:
+      - mysql
+      - memcached
+  guacamole:
+    image: "aitzol/uds-guacamole-tunnel:0.1"
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_DATABASE: uds
+      MYSQL_USER: udsuser
+      MYSQL_PASSWORD: udspassword
+    volumes:
+      - dbdata:/var/lib/mysql
+  memcached:
+    image: "memcached"
+volumes:
+  dbdata:
