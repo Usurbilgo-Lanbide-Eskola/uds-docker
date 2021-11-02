@@ -1,6 +1,6 @@
 version: "3.9"
 services:
-  server:
+  udsbroker:
     ports: 
       - "8000:8000"
     image: "aitzol/udsserver:0.2"
@@ -8,6 +8,8 @@ services:
     depends_on:
       - mysql
       - memcached
+    volumes:
+      - assets:/app/uds/static
   guacamole:
     image: "aitzol/uds-guacamole-tunnel:0.1"
   mysql:
@@ -21,5 +23,15 @@ services:
       - dbdata:/var/lib/mysql
   memcached:
     image: "memcached"
+  webserver:
+    image: nginx
+    volumes:
+      - ./reverse-proxy.conf:/etc/nginx/nginx.conf
+      - assets:/media
+    ports:
+      - "80:80"
+    depends_on:
+      - udsbroker
 volumes:
   dbdata:
+  assets:
