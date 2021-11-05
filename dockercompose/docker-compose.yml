@@ -11,9 +11,11 @@ services:
     volumes:
       - assets:/app/uds/static
   guacamole:
-    image: "aitzol/uds-guacamole-tunnel:0.1"
+    image: "aitzol/uds-guacamole-tunnel:0.2"
     ports: 
-      - "10443:8080"
+      - "10443:10443"
+    volumes:
+      - ./certs:/etc/certs
   mysql:
     image: mysql
     environment:
