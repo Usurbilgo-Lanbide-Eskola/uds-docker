@@ -3,8 +3,8 @@ services:
   udsbroker:
     ports: 
       - "8000:8000"
-    image: "aitzol/udsserver:0.2"
-    command: gunicorn -b :8000 --env DJANGO_SETTINGS_MODULE=server.settings server.wsgi
+    image: "aitzol/udsbroker:0.3"
+    command: /bin/bash /start.sh
     depends_on:
       - mysql
       - memcached
@@ -32,8 +32,10 @@ services:
     volumes:
       - ./reverse-proxy.conf:/etc/nginx/nginx.conf
       - assets:/media
+      - ./certs:/etc/certs
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
       - udsbroker
 volumes:
