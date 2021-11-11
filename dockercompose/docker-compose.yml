@@ -11,7 +11,8 @@ services:
     volumes:
       - assets:/app/uds/static
   guacamole:
-    image: "aitzol/uds-guacamole-tunnel:0.2"
+    image: "aitzol/uds-guacamole-tunnel:0.3"
+    command: /bin/bash /run_services.sh
     ports: 
       - "10443:10443"
     volumes:
