@@ -29,11 +29,12 @@ services:
   memcached:
     image: "memcached"
   webserver:
-    image: nginx
+    image: caddy
     volumes:
-      - ./reverse-proxy.conf:/etc/nginx/nginx.conf
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
       - assets:/media
-      - ./certs:/etc/certs
+      - ./caddy/data:/data
+      - ./caddy/config:/config
     ports:
       - "80:80"
       - "443:443"

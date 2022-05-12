@@ -1,0 +1,18 @@
+
+# if DOMAIN_NAME starts with http:// caddy won't get ssl certificate
+# else DOMAIN_NAME must resolve to caddy's IP
+
+DOMAIN_NAME {
+
+    @notStatic {
+        not path /uds/res/
+    }
+    root * /media
+    handle {
+        reverse_proxy @notStatic udsbroker:8000 
+    }
+    handle /uds/res/* {
+        uri strip_prefix /uds/res
+        file_server
+    }
+}
