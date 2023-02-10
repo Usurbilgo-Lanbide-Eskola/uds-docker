@@ -11,3 +11,10 @@ and
 ```
 openssl dhparam -out dhparam.pem 4096
 ```
+
+# Run docker compose file
+
+Go to the cloned directory and run 
+```
+docker-compose up -d
+```
