@@ -3,20 +3,15 @@ services:
   udsbroker:
     ports: 
       - "8000:8000"
-    image: "aitzol/udsbroker:0.3"
-    command: /bin/bash /start.sh
+    image: "aitzol/udsbroker:3.5"
     depends_on:
       - mysql
       - memcached
     volumes:
-      - assets:/app/uds/static
-  guacamole:
-    image: "aitzol/uds-guacamole-tunnel:0.3"
-    command: /bin/bash /run_services.sh
-    ports: 
-      - "10443:10443"
-    volumes:
-      - ./certs:/etc/certs
+      - assets:/app/static
+  taskManager:
+    image: "aitzol/udsbroker:3.5"
+    command: "python manage.py taskManager --start --foreground"
   mysql:
     image: mysql
     environment:
@@ -26,8 +21,35 @@ services:
       MYSQL_PASSWORD: udspassword
     volumes:
       - dbdata:/var/lib/mysql
+  mysql-guacamole:
+    image: mysql
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_DATABASE: guacamole
+      MYSQL_USER: guacamoleuser
+      MYSQL_PASSWORD: guacamolepassword
   memcached:
     image: "memcached"
+  guacd:
+    image: "guacamole/guacd"
+    ports:
+      - "4822:4822"
+  guacamole:
+    image: "guacamole/guacamole"
+    volumes:
+      - ./guacamoletunnel:/guacamole_home
+    environment:
+      GUACD_HOSTNAME: guacd
+      GUACAMOLE_HOME: /guacamole_home
+      MYSQL_HOSTNAME: mysql-guacamole
+      MYSQL_DATABASE: guacamole
+      MYSQL_USER: guacamoleuser
+      MYSQL_PASSWORD: guacamolepassword 
+    links:
+      - guacd
+    ports:
+      - "8080:8080"
+    
   webserver:
     image: caddy
     volumes:
@@ -35,11 +57,16 @@ services:
       - assets:/media
       - ./caddy/data:/data
       - ./caddy/config:/config
+      - caddyconfig:/config
+      - caddydata:/data
     ports:
       - "80:80"
       - "443:443"
     depends_on:
       - udsbroker
+
 volumes:
   dbdata:
   assets:
+  caddyconfig:
+  caddydata:
