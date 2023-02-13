@@ -6,7 +6,7 @@ services:
     image: "aitzol/udsbroker:3.5"
     depends_on:
       - mysql
-      - memcached
+      - memcache
     volumes:
       - assets:/app/static
   taskManager:
@@ -21,6 +21,8 @@ services:
       MYSQL_PASSWORD: udspassword
     volumes:
       - dbdata:/var/lib/mysql
+    security_opt:
+      - seccomp:unconfined
   mysql-guacamole:
     image: mysql
     environment:
@@ -28,7 +30,7 @@ services:
       MYSQL_DATABASE: guacamole
       MYSQL_USER: guacamoleuser
       MYSQL_PASSWORD: guacamolepassword
-  memcached:
+  memcache:
     image: "memcached"
   guacd:
     image: "guacamole/guacd"
@@ -64,7 +66,10 @@ services:
       - "443:443"
     depends_on:
       - udsbroker
-
+  uds-tunnel-server:
+    image: aitzol/uds-tunnel-server:0.1
+    ports: 
+      - "7777:7777"
 volumes:
   dbdata:
   assets:
