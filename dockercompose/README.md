@@ -1,3 +1,15 @@
+Before this environment can be run, some manual configuration steps should be done.
+
+
+# Web access
+
+This docker compose environment uses [Caddy](https://caddyserver.com) to manage HTTP/HTTPS access and SSL certificates. In order to setup
+a valid certificate chain, you should change caddy/Caddyfile file and change `openuds35` with a full qualified domain 
+name pointing to the public ip running the environment.
+
+If Caddy detects a fqdn it will try to create a valid SSL certificate, if it detects a local/internal ip it will create
+self signeg certicates (https://caddyserver.com/docs/automatic-https)
+
 # Set tunnel token 
 
 In order to comunicate with uds broker the guacamole and uds tunnel server must have a valid token.
@@ -37,13 +49,3 @@ Edit guacamoletunnel/guacamole.properties and uds-tunnel/udstunnel.conf files to
 literal with the created token.
 
 ## Restart docker compose environment
-
-# Web access
-
-This docker compose environment uses [Caddy](https://caddyserver.com) to manage HTTP/HTTPS access and SSL certificates. In order to setup
-a valid certificate chain, you should change caddy/Caddyfile file and change `openuds35` with a full qualified domain 
-name pointing to the public ip running the environment.
-
-If Caddy detects a fqdn it will try to create a valid SSL certificate, if it detects a local/internal ip it will create
-self signeg certicates (https://caddyserver.com/docs/automatic-https)
-
