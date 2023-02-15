@@ -70,6 +70,8 @@ services:
     image: aitzol/uds-tunnel-server:0.1
     ports: 
       - "7777:7777"
+    volumes:
+      - ./uds-tunnel/udstunnel.conf:/etc/udstunnel.conf
 volumes:
   dbdata:
   assets:
