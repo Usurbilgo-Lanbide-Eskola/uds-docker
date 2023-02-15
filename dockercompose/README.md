@@ -40,7 +40,7 @@ literal with the created token.
 
 # Web access
 
-This docker compose environment uses Caddy to manage HTTP/HTTPS access and SSL certificates. In order to setup
+This docker compose environment uses [Caddy](https://caddyserver.com) to manage HTTP/HTTPS access and SSL certificates. In order to setup
 a valid certificate chain, you should change caddy/Caddyfile file and change `openuds35` with a full qualified domain 
 name pointing to the public ip running the environment.
 
