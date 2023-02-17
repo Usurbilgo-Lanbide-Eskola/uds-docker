@@ -9,6 +9,7 @@ services:
       - memcache
     volumes:
       - assets:/app/static
+      - ./server/rsa_key:/app/rsa_key
   taskManager:
     image: "aitzol/udsbroker:3.5"
     command: "python manage.py taskManager --start --foreground"
@@ -30,6 +31,8 @@ services:
       MYSQL_DATABASE: guacamole
       MYSQL_USER: guacamoleuser
       MYSQL_PASSWORD: guacamolepassword
+    security_opt:
+      - seccomp:unconfined
   memcache:
     image: "memcached"
   guacd:
