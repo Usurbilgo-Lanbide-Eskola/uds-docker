@@ -2,7 +2,7 @@ Before this environment can be run, some manual configuration steps should be do
 
 # RSA key
 
-Create a RSA key an save in server rsa_key and save as server/rsa_key file. This key will be used to cypher all sensible settings, so store it in a safe place.
+Create a RSA key an save as [server/rsa_key](./server/rsa_key) file. This key will be used to cypher all sensible settings, so store it in a safe place.
 If you loose this file you must recreate all the secrets.
 
 # Web access
