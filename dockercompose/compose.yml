@@ -64,6 +64,7 @@ services:
       - ./caddy/config:/config
       - caddyconfig:/config
       - caddydata:/data
+      - ./clients:/media/clients
     ports:
       - "80:80"
       - "443:443"
@@ -80,3 +81,4 @@ volumes:
   assets:
   caddyconfig:
   caddydata:
+  clients:

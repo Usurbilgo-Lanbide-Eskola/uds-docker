@@ -53,3 +53,9 @@ Edit guacamoletunnel/guacamole.properties and uds-tunnel/udstunnel.conf files to
 literal with the created token.
 
 ## Restart docker compose environment
+
+# UDS Client
+
+UDS uses dedicated clients to provide RDP connections. The easiest way to get those clients is openning an account in [UDSenterprise.com](https://www.udsenterprise.com/en/accounts/register) and download from there.
+
+Once dowloaded save in [dockecompose/clients](clients) folder.
