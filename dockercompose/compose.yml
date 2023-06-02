@@ -13,6 +13,8 @@ services:
   taskManager:
     image: "aitzol/udsbroker:3.5"
     command: "python manage.py taskManager --start --foreground"
+    depends_on:
+      - mysql
   mysql:
     image: mysql
     environment:
