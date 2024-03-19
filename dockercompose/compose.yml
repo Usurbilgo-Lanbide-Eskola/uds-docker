@@ -64,8 +64,6 @@ services:
       - assets:/media
       - ./caddy/data:/data
       - ./caddy/config:/config
-      - caddyconfig:/config
-      - caddydata:/data
       - ./clients:/media/clients
     ports:
       - "80:80"
