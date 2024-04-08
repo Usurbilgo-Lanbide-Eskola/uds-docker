@@ -38,12 +38,12 @@ python manage.py migrate
 
 Open a shell in the udsbroker service and run
 ```
-python manage.py migrate
+python manage.py shell
 
 >>> import datetime
 >>> from uds.models.tunnel_token import TunnelToken
 >>> token=YOUR_GENERATED_TOKEN
->>> tunnel_id=YOUR_TUNNEL_SERVER_IP
+>>> tunnel=YOUR_DOCKER_COMPOSE_SERVER_IP
 >>> TunnelToken.objects.create(ip=tunnel, token=token,stamp=datetime.datetime.now())
 ```
 
