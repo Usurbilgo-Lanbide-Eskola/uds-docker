@@ -18,7 +18,12 @@ self signeg certicates (https://caddyserver.com/docs/automatic-https)
 
 In order to comunicate with uds broker the guacamole and uds tunnel server must have a valid token.
 This token can be any hash under 48 characters.  Generate this chain with any tool you want.
-(in python you can use hashlib.sha256().hexdigest[:48])
+In python you can use:
+```
+import hashlib
+import secrets
+hashlib.sha256(secrets.token_bytes(32)).hexdigest()[:48]
+```
 
 ## Run docker compose file
 
