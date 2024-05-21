@@ -15,4 +15,7 @@ DOMAIN_NAME {
         uri strip_prefix /uds/res
         file_server
     }
+    handle /guacamole/* {
+        reverse_proxy @notStatic guacamole:8080
+    }
 }
