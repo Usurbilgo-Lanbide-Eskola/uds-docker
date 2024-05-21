@@ -3,7 +3,11 @@ Before this environment can be run, some manual configuration steps should be do
 # RSA key
 
 Create a RSA key an save as [server/rsa_key](./server/rsa_key) file. This key will be used to cypher all sensible settings, so store it in a safe place.
-If you loose this file you must recreate all the secrets.
+If you loose this file you must recreate all the secrets. For example:
+```
+ssh-keygen -t rsa -m pem -b 2048 -f server/rsa_key
+chmod 600 server/rsa_key
+```
 
 # Web access
 
@@ -32,11 +36,12 @@ Go to the cloned directory and run
 docker compose up -d
 ```
 
-## Create / update database tables
+## Create / update database tables and deploy static webfiles
 
-Open a shell in the udsbroker service and run
+Open a shell in the udsbroker service (docker exec -it dockercompose_udsbroker_1 bash) and run
 ```
 python manage.py migrate
+python manage.py collectstatic
 ```
 
 ## Register the tunnel token in the db
