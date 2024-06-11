@@ -5,8 +5,7 @@ Before this environment can be run, some manual configuration steps should be do
 Create a RSA key an save as [server/rsa_key](./server/rsa_key) file. This key will be used to cypher all sensible settings, so store it in a safe place.
 If you loose this file you must recreate all the secrets. For example:
 ```
-ssh-keygen -t rsa -m pem -b 2048 -f server/rsa_key
-chmod 600 server/rsa_key
+openssl genrsa --out server/rsa_key 2048
 ```
 
 # Web access
