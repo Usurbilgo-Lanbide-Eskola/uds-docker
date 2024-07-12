@@ -5,8 +5,7 @@ Before this environment can be run, some manual configuration steps should be do
 Create a RSA key an save as [server/rsa_key](./server/rsa_key) file. This key will be used to cypher all sensible settings, so store it in a safe place.
 If you loose this file you must recreate all the secrets. For example:
 ```
-ssh-keygen -t rsa -m pem -b 2048 -f server/rsa_key
-chmod 600 server/rsa_key
+openssl genrsa --out server/rsa_key 2048
 ```
 
 # Web access
@@ -64,8 +63,26 @@ literal with the created token.
 
 ## Restart docker compose environment
 
+```
+docker compose restart
+```
+
+## Default admin
+
+Use a browser to connect to server's IP/URL as configured in Caddy.
+
+Default admin is 'root' and password 'udsmam0'.
+
+Create a new authenticator (for example of type Internal Database) and a new admin user.
+
+Login with new admin user, and disable default admin in Tools->Configuration->Security "allowRootWebAccess". 
+
+Check that default admin is no longer able to login!
+
 # UDS Client
 
 UDS uses dedicated clients to provide RDP connections. The easiest way to get those clients is openning an account in [UDSenterprise.com](https://www.udsenterprise.com/en/accounts/register) and download from there.
 
 Once dowloaded save in [dockecompose/clients](clients) folder.
+
+
